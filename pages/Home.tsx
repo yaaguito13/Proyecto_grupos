@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { EventCard } from '../components/UI';
 import { EVENTS } from '../services/data';
-import { Filter } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
 export const Home: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'featured' | 'forYou'>('featured');
@@ -17,33 +17,43 @@ export const Home: React.FC = () => {
 
   const displayedEvents = activeTab === 'featured' 
     ? EVENTS.filter(e => e.isFeatured) 
-    : EVENTS; // Mock logic: "For You" shows all for demo
+    : EVENTS;
 
   return (
     <div className="pb-4">
-      {/* Top Tabs */}
-      <div className="flex items-center gap-4 mb-6">
-        <div className="flex-1 bg-gray-800/50 p-1 rounded-xl flex">
+      {/* Header Area */}
+      <div className="mb-6">
+        <h2 className="text-3xl font-black text-white mb-1">
+          Hola, <span className="text-party-cyan">Alex</span>
+        </h2>
+        <p className="text-gray-400">¿Qué plan hay en Coruña hoy?</p>
+      </div>
+
+      {/* Modern Tab Switcher */}
+      <div className="flex items-center gap-4 mb-8">
+        <div className="flex-1 glass-panel p-1.5 rounded-2xl flex relative">
+          {/* Animated Background Pill */}
+          <div 
+            className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-party-gradient rounded-xl transition-all duration-300 shadow-lg ${activeTab === 'forYou' ? 'translate-x-[calc(100%+6px)]' : 'translate-x-0'}`}
+          />
+          
           <button 
             onClick={() => setActiveTab('featured')}
-            className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${activeTab === 'featured' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-white'}`}
+            className={`flex-1 py-2.5 rounded-xl text-sm font-bold z-10 transition-colors flex items-center justify-center gap-2 ${activeTab === 'featured' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
           >
-            Destacados
+            <Zap size={16} fill={activeTab === 'featured' ? "currentColor" : "none"} /> Destacados
           </button>
           <button 
              onClick={() => setActiveTab('forYou')}
-             className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${activeTab === 'forYou' ? 'bg-gray-700 text-white shadow-sm' : 'text-gray-400 hover:text-white'}`}
+             className={`flex-1 py-2.5 rounded-xl text-sm font-bold z-10 transition-colors ${activeTab === 'forYou' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
           >
-            Gustos
+            Para ti
           </button>
         </div>
-        <button className="p-3 bg-gray-800/50 rounded-xl text-white hover:bg-gray-700 transition-colors">
-          <Filter size={20} />
-        </button>
       </div>
 
       {/* Content List */}
-      <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
         {displayedEvents.map(event => (
           <EventCard 
             key={event.id} 
@@ -53,9 +63,8 @@ export const Home: React.FC = () => {
           />
         ))}
         
-        {/* Empty State Fallback */}
         {displayedEvents.length === 0 && (
-          <div className="text-center py-10">
+          <div className="text-center py-20 glass-panel rounded-3xl">
             <p className="text-gray-500">No hay eventos para mostrar.</p>
           </div>
         )}

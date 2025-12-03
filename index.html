@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="https://lucide.dev/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PartyLink</title>
+    <title>PartyLink Coruña</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -16,13 +16,19 @@
             },
             colors: {
               party: {
-                dark: '#0f0c29',
-                purple: '#302b63',
-                black: '#24243e',
-                neon: '#b026ff',
-                cyan: '#00f2ea',
-                pink: '#ff0099'
+                bg: '#020617',      // Deep Atlantic Night
+                surface: '#0f172a', // Dark Slate
+                primary: '#00A3FF', // Coruña Electric Blue
+                secondary: '#F59E0B', // Hercules Tower Gold
+                cyan: '#38BDF8',    // Sky/Light Blue
+                yellow: '#FCD34D',  // Light Gold
+                success: '#34D399'  // Sea Green
               }
+            },
+            backgroundImage: {
+              'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+              'party-gradient': 'linear-gradient(135deg, #00A3FF 0%, #0066CC 100%)', // Blue Depth
+              'gold-gradient': 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)', // Gold
             }
           }
         }
@@ -30,7 +36,11 @@
     </script>
     <style>
       body {
-        background: #0f0c29;
+        background-color: #020617;
+        background-image: 
+          radial-gradient(circle at 15% 50%, rgba(0, 163, 255, 0.08) 0%, transparent 25%),
+          radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.05) 0%, transparent 25%);
+        background-attachment: fixed;
         color: white;
       }
       /* Hide scrollbar for clean UI */
@@ -40,6 +50,15 @@
       .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .neon-text {
+        text-shadow: 0 0 10px rgba(0, 163, 255, 0.5);
       }
     </style>
   <script type="importmap">

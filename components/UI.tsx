@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Calendar, Heart } from 'lucide-react';
+import { MapPin, Calendar, Heart, ArrowRight } from 'lucide-react';
 import { Event } from '../types';
 
 // --- Button Component ---
@@ -15,13 +15,19 @@ export const Button: React.FC<ButtonProps> = ({
   className = '', 
   ...props 
 }) => {
-  const baseStyles = "py-3 px-6 rounded-full font-semibold transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2";
+  const baseStyles = "py-3.5 px-6 rounded-2xl font-bold tracking-wide transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2";
   
   const variants = {
-    primary: "bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50",
-    secondary: "bg-gray-800 text-white hover:bg-gray-700",
-    outline: "border-2 border-party-cyan text-party-cyan hover:bg-party-cyan/10",
-    ghost: "bg-transparent text-gray-300 hover:text-white"
+    // Gradient vibrant background with shadow glow (Blue Ocean)
+    primary: "bg-party-gradient text-white shadow-[0_0_20px_rgba(0,163,255,0.4)] hover:shadow-[0_0_30px_rgba(0,163,255,0.6)] hover:brightness-110 border border-white/10",
+    
+    // Glassy secondary (Gold hint)
+    secondary: "glass-panel text-white hover:bg-party-secondary/20 hover:border-party-secondary/50",
+    
+    // Neon outline
+    outline: "border-2 border-party-cyan text-party-cyan hover:bg-party-cyan hover:text-black shadow-[0_0_10px_rgba(56,189,248,0.2)]",
+    
+    ghost: "bg-transparent text-gray-400 hover:text-white"
   };
 
   return (
@@ -42,16 +48,16 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const Input: React.FC<InputProps> = ({ label, icon, className = '', ...props }) => {
   return (
-    <div className={`flex flex-col gap-1 mb-4 ${className}`}>
-      {label && <label className="text-sm text-gray-400 ml-2">{label}</label>}
-      <div className="relative">
+    <div className={`flex flex-col gap-1.5 mb-5 ${className}`}>
+      {label && <label className="text-xs font-bold text-gray-400 ml-1 uppercase tracking-wider">{label}</label>}
+      <div className="relative group">
         {icon && (
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-party-primary transition-colors">
             {icon}
           </div>
         )}
         <input 
-          className={`w-full bg-gray-800/50 border border-gray-700 rounded-2xl py-3 ${icon ? 'pl-12' : 'pl-4'} pr-4 text-white focus:outline-none focus:border-party-neon focus:ring-1 focus:ring-party-neon transition-colors`}
+          className={`w-full bg-black/30 border border-white/10 rounded-2xl py-4 ${icon ? 'pl-12' : 'pl-4'} pr-4 text-white focus:outline-none focus:border-party-primary focus:ring-1 focus:ring-party-primary transition-all placeholder-gray-600 backdrop-blur-sm`}
           {...props}
         />
       </div>
@@ -68,57 +74,71 @@ interface EventCardProps {
 
 export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggleFavorite }) => {
   return (
-    <div className="relative group rounded-2xl overflow-hidden bg-gray-900/40 border border-white/5 shadow-xl hover:border-party-neon/50 transition-all duration-300 mb-4">
-      {/* Image Overlay */}
-      <div className="relative h-48 w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10" />
+    <div className="relative group rounded-3xl overflow-hidden glass-panel hover:border-party-primary/50 transition-all duration-500 mb-6">
+      
+      {/* Image Container with Diagonal Clip */}
+      <div className="relative h-56 w-full overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-party-bg via-transparent to-transparent z-10 opacity-90" />
         <img 
           src={event.image} 
           alt={event.title} 
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
         />
-        <div className="absolute top-3 right-3 z-20">
-          <button 
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleFavorite?.(event.id);
-            }}
-            className={`p-2 rounded-full backdrop-blur-md ${isFavorite ? 'bg-pink-500/20 text-pink-500' : 'bg-black/30 text-white'} hover:bg-pink-500 hover:text-white transition-colors`}
-          >
-            <Heart size={20} fill={isFavorite ? "currentColor" : "none"} />
-          </button>
+        
+        {/* Floating Category Badge */}
+        <div className="absolute top-4 left-4 z-20">
+           <div className="px-3 py-1.5 text-xs font-bold bg-black/60 backdrop-blur-md border border-white/10 text-party-cyan rounded-full uppercase tracking-wider">
+             {event.category}
+           </div>
         </div>
-        <div className="absolute top-3 left-3 z-20">
-             <span className="px-3 py-1 text-xs font-bold bg-party-neon/80 text-white rounded-full backdrop-blur-sm">
-               {event.category}
-             </span>
-        </div>
+
+        {/* Favorite Button */}
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleFavorite?.(event.id);
+          }}
+          className={`absolute top-4 right-4 z-20 p-2.5 rounded-full backdrop-blur-lg border border-white/10 transition-all duration-300 ${isFavorite ? 'bg-party-primary text-white shadow-[0_0_15px_rgba(0,163,255,0.5)]' : 'bg-black/40 text-white hover:bg-white/20'}`}
+        >
+          <Heart size={20} fill={isFavorite ? "currentColor" : "none"} />
+        </button>
       </div>
 
-      {/* Content */}
-      <div className="p-4 relative z-20">
-        <h3 className="text-xl font-bold text-white mb-2 leading-tight">{event.title}</h3>
-        
-        <div className="flex items-center gap-2 text-gray-400 mb-1 text-sm">
-          <Calendar size={14} className="text-party-cyan" />
-          <span>{event.date}</span>
+      {/* Card Body */}
+      <div className="p-5 relative z-20 -mt-12">
+        <div className="flex justify-between items-end mb-2">
+            <h3 className="text-2xl font-black text-white leading-none group-hover:text-party-primary transition-colors neon-text drop-shadow-md">
+                {event.title}
+            </h3>
         </div>
         
-        <div className="flex items-center gap-2 text-gray-400 text-sm">
-          <MapPin size={14} className="text-pink-500" />
-          <span>{event.location}</span>
+        <div className="flex items-center gap-4 text-gray-300 mb-4 text-sm font-medium">
+          <div className="flex items-center gap-1.5">
+            <Calendar size={14} className="text-party-primary" />
+            <span>{event.date}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <MapPin size={14} className="text-party-secondary" />
+            <span>{event.location}</span>
+          </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between">
-           <div className="flex -space-x-2">
+        {/* Footer info */}
+        <div className="flex items-center justify-between pt-4 border-t border-white/5">
+           <div className="flex -space-x-3">
               {[1,2,3].map((i) => (
-                <div key={i} className="w-6 h-6 rounded-full border border-gray-900 bg-gray-700 overflow-hidden">
-                  <img src={`https://picsum.photos/50/50?random=${event.id}${i}`} alt="user" />
+                <div key={i} className="w-8 h-8 rounded-full border-2 border-party-surface bg-gray-800 overflow-hidden">
+                  <img src={`https://picsum.photos/50/50?random=${event.id}${i}`} alt="user" className="w-full h-full object-cover"/>
                 </div>
               ))}
-              <span className="text-xs text-gray-400 pl-3 pt-1">+{event.attendees} van</span>
+              <div className="w-8 h-8 rounded-full bg-party-surface border-2 border-white/10 flex items-center justify-center text-[10px] font-bold text-gray-400">
+                +{event.attendees}
+              </div>
            </div>
-           <button className="text-xs font-semibold text-party-cyan hover:underline">Ver detalles</button>
+           
+           <button className="flex items-center gap-2 text-sm font-bold text-white group-hover:text-party-primary transition-colors">
+             Ver Ticket <ArrowRight size={16} />
+           </button>
         </div>
       </div>
     </div>

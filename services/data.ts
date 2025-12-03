@@ -50,6 +50,17 @@ export const EVENTS: Event[] = [
     isFeatured: false,
     category: 'Latino',
     attendees: 210
+  },
+  {
+    id: '99',
+    title: 'Mi Cumpleaños',
+    date: 'Sáb, 02 Dic • 22:00',
+    location: 'Mi Casa',
+    image: 'https://picsum.photos/800/600?random=99',
+    isFeatured: false,
+    category: 'Privado',
+    attendees: 15,
+    isUserCreated: true
   }
 ];
 

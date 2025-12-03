@@ -21,6 +21,7 @@ export interface Event {
   isFeatured: boolean;
   category: string;
   attendees: number;
+  isUserCreated?: boolean; // New field
 }
 
 export interface Friend {
