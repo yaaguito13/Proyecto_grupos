@@ -27,6 +27,13 @@ export const Onboarding: React.FC = () => {
     navigate('/home');
   };
 
+  const isSelectionEmpty = () => {
+    if (step === 1) return selectedMusic.length === 0;
+    if (step === 2) return selectedVenues.length === 0;
+    if (step === 3) return selectedAge.length === 0;
+    return false;
+  };
+
   const SelectionGrid = ({ items, selected, toggle, single = false }: any) => (
     <div className="grid grid-cols-2 gap-3">
       {items.map((item: string) => {
@@ -106,13 +113,12 @@ export const Onboarding: React.FC = () => {
         <Button 
           fullWidth 
           onClick={() => step < 3 ? setStep(step + 1) : handleFinish()}
-          disabled={
-            (step === 1 && selectedMusic.length === 0) ||
-            (step === 2 && selectedVenues.length === 0) ||
-            (step === 3 && selectedAge.length === 0)
-          }
+          variant={isSelectionEmpty() ? 'secondary' : 'primary'}
         >
-          {step === 3 ? 'Guardar y Continuar' : 'Siguiente'}
+          {step === 3 
+            ? (isSelectionEmpty() ? 'Finalizar' : 'Guardar y Continuar')
+            : (isSelectionEmpty() ? 'Saltar' : 'Siguiente')
+          }
         </Button>
       </div>
     </div>
