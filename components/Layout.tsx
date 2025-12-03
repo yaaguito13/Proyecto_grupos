@@ -25,7 +25,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const sidebarItems = [
     { icon: User, label: 'Editar Perfil', action: () => navigate('/profile') },
-    { icon: Heart, label: 'Editar Gustos', action: () => navigate('/onboarding') },
+    { icon: Heart, label: 'Editar Gustos', action: () => navigate('/onboarding', { state: { mode: 'edit' } }) },
     { icon: Bell, label: 'Notificaciones', action: () => {} },
     { icon: Shield, label: 'Privacidad', action: () => {} },
   ];

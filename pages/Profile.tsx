@@ -52,7 +52,7 @@ export const Profile: React.FC = () => {
         </div>
 
         <div className="w-full space-y-3 px-2">
-          <Button variant="secondary" fullWidth onClick={() => navigate('/onboarding')}>
+          <Button variant="secondary" fullWidth onClick={() => navigate('/onboarding', { state: { mode: 'edit' } })}>
             Editar Gustos Musicales
           </Button>
           <Button variant="outline" fullWidth>
