@@ -112,7 +112,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
             </h3>
         </div>
         
-        <div className="flex items-center gap-4 text-gray-300 mb-4 text-sm font-medium">
+        <div className="flex items-center gap-4 text-gray-300 mb-2 text-sm font-medium">
           <div className="flex items-center gap-1.5">
             <Calendar size={14} className="text-party-primary" />
             <span>{event.date}</span>
@@ -121,24 +121,6 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
             <MapPin size={14} className="text-party-secondary" />
             <span>{event.location}</span>
           </div>
-        </div>
-
-        {/* Footer info */}
-        <div className="flex items-center justify-between pt-4 border-t border-white/5">
-           <div className="flex -space-x-3">
-              {[1,2,3].map((i) => (
-                <div key={i} className="w-8 h-8 rounded-full border-2 border-party-surface bg-gray-800 overflow-hidden">
-                  <img src={`https://picsum.photos/50/50?random=${event.id}${i}`} alt="user" className="w-full h-full object-cover"/>
-                </div>
-              ))}
-              <div className="w-8 h-8 rounded-full bg-party-surface border-2 border-white/10 flex items-center justify-center text-[10px] font-bold text-gray-400">
-                +{event.attendees}
-              </div>
-           </div>
-           
-           <button className="flex items-center gap-2 text-sm font-bold text-white group-hover:text-party-primary transition-colors">
-             Ver Ticket <ArrowRight size={16} />
-           </button>
         </div>
       </div>
     </div>

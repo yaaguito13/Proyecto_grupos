@@ -9,6 +9,7 @@ import { Home } from './pages/Home';
 import { Friends } from './pages/Friends';
 import { Favorites } from './pages/Favorites';
 import { Profile } from './pages/Profile';
+import { AddFriend } from './pages/AddFriend';
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         
         <Route path="/home" element={<Home />} />
         <Route path="/friends" element={<Friends />} />
+        <Route path="/add-friend" element={<AddFriend />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/profile" element={<Profile />} />
         

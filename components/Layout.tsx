@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, Heart, Users, User, Menu, X, LogOut, Bell, Sparkles } from 'lucide-react';
+import { Home, Heart, Users, User, Menu, X, LogOut, Sparkles } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 interface LayoutProps {
@@ -25,7 +25,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const sidebarItems = [
     { icon: User, label: 'Editar Perfil', action: () => navigate('/profile') },
     { icon: Heart, label: 'Editar Gustos', action: () => navigate('/onboarding', { state: { mode: 'edit' } }) },
-    { icon: Bell, label: 'Notificaciones', action: () => {} },
   ];
 
   return (
